@@ -1,0 +1,11 @@
+#
+# known button device descriptors
+#
+#f6ea91f0125088112b9313ae910aa9972e6557e0=1
+#1663dad8a1ccd4e493f0c2e10c204f9c3003e297=1
+#
+# sesame
+#
+sesame_apikey=your_sesame_api_key
+sesame_device1=your_sesame_device_id
+sesame_device2=your_sesame_device_id

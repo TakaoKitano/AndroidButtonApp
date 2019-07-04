@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="button_unlock">#4000c080</color>
+    <color name="button_lock">#400066cc</color>
+    <color name="button_finish">#80808080</color>
+    <color name="color_background">#e0ffff</color>
+</resources>
