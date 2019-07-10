@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="@color/color_background">
+        android:background="@color/color_background"
+        tools:ignore="HardcodedText">
 
     <CheckBox
             android:text="ButtonWatchService"
@@ -16,7 +17,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_margin="@dimen/button_layout_margin"
-            android:textSize="20dp"
     />
     <TextView
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toBottomOf="@id/check_button_app_service"
             android:id="@+id/text_explain"
             android:layout_margin="@dimen/text_padding"
-            android:text="When ButtonWatchService is enabled, this screen will be shown by a double click of large button "
+            android:text="When ButtonWatchService is enabled, this screen will be shown with a large button click"
     />
 
     <View
@@ -65,6 +65,7 @@
                 android:layout_marginStart="5dp"
                 app:layout_constraintBottom_toBottomOf="@id/nameUpper"
                 app:layout_constraintLeft_toRightOf="@id/nameUpper"
+                android:maxLines="1"
         />
         <TextView
                 android:id="@+id/nameLower"
@@ -85,7 +86,8 @@
                 android:textStyle="bold"
                 android:layout_marginStart="5dp"
                 app:layout_constraintBottom_toBottomOf="@id/nameLower"
-                app:layout_constraintLeft_toRightOf="@id/nameLower"/>
+                app:layout_constraintLeft_toRightOf="@id/nameLower"
+                android:maxLines="1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -94,7 +96,7 @@
             android:text="unlock"
             android:layout_width="150dp"
             android:layout_height="100dp"
-            android:textSize="32dp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +116,7 @@
             android:text="lock"
             android:layout_width="150dp"
             android:layout_height="100dp"
-            android:textSize="32dp"
+            android:textSize="24sp"
             app:layout_constraintTop_toBottomOf="@id/button_unlock"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/lock_button_shape"

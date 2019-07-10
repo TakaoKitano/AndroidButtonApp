@@ -6,7 +6,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import timber.log.Timber
 import java.util.*
 
 interface SESAMEAPIV3 {
@@ -32,9 +31,12 @@ class SesameAPI (prop: Properties, testmode:Boolean = false)
 {
     private val fTestmode = testmode
     private val token :String
-    private val IDs : Array<String>
-    private val CMD_LOCK_JSON = "{\"command\":\"lock\"}"
-    private val CMD_UNLOCK_JSON = "{\"command\":\"unlock\"}"
+    private val deviceIds : Array<String>
+
+    companion object {
+        const val CMD_LOCK_JSON = "{\"command\":\"lock\"}"
+        const val CMD_UNLOCK_JSON = "{\"command\":\"unlock\"}"
+    }
 
     private var api: SESAMEAPIV3
 
@@ -45,7 +47,7 @@ class SesameAPI (prop: Properties, testmode:Boolean = false)
             .build()
         api = retrofit.create(SESAMEAPIV3::class.java)
         token = prop.getProperty("sesame_apikey")
-        IDs = arrayOf(prop.getProperty("sesame_device1"), prop.getProperty("sesame_device2"))
+        deviceIds = arrayOf(prop.getProperty("sesame_device1"), prop.getProperty("sesame_device2"))
     }
 
     private fun control(id: String, cmd: String) : String {
@@ -53,17 +55,15 @@ class SesameAPI (prop: Properties, testmode:Boolean = false)
             return String.format("fTestmode %s %s", id, cmd)
         }
 
-        Timber.d("control(id=%s cmd=%s)", id, cmd)
         return  try {
             val response : Response<ControlResult> = api.sesameControl(token, id, cmd).execute()
             if (response.isSuccessful) {
                 (response.body() as ControlResult).task_id
             } else {
-                Timber.d("ERROR: %s", response.message())
-                response.message().substring(0,40)
+                response.message()
             }
         } catch (e: Exception) {
-            e.message.toString().substring(0,40)
+            e.message.toString()
         }
     }
 
@@ -74,17 +74,17 @@ class SesameAPI (prop: Properties, testmode:Boolean = false)
                 val s = response.body() as StatusResult
                 String.format("%s %d%%", if (s.locked) "locked" else "unlocked", s.battery)
             } else {
-                response.message().toString().substring(0,40)
+                response.message().toString()
             }
         } catch (e: Exception) {
-            e.message.toString().substring(0,40)
+            e.message.toString()
         }
     }
 
     fun unlockAsync(index: Int) : Deferred<String> {
         var result :String
         return GlobalScope.async(Dispatchers.IO) {
-            result = control(IDs[index], CMD_UNLOCK_JSON)
+            result = control(deviceIds[index], CMD_UNLOCK_JSON)
             return@async result
         }
     }
@@ -92,7 +92,7 @@ class SesameAPI (prop: Properties, testmode:Boolean = false)
     fun lockAsync(index: Int) : Deferred<String> {
         var result :String
         return GlobalScope.async(Dispatchers.IO) {
-            result = control(IDs[index], CMD_LOCK_JSON)
+            result = control(deviceIds[index], CMD_LOCK_JSON)
             return@async result
         }
     }
@@ -100,7 +100,7 @@ class SesameAPI (prop: Properties, testmode:Boolean = false)
     fun statusAsync(index: Int) : Deferred<String> {
         var result:String
         return GlobalScope.async(Dispatchers.IO) {
-            result = status(IDs[index])
+            result = status(deviceIds[index])
             return@async result
         }
     }

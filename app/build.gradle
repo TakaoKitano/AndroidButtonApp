@@ -20,17 +20,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    flavorDimensions "sesame_api_testmode"
-    productFlavors {
-        sesame_testmode {
-            dimension "sesame_api_testmode"
-            buildConfigField 'Boolean',  'sesame_api_testmode', 'true'
-        }
-        sesame_realmode {
-            dimension "sesame_api_testmode"
-            buildConfigField 'Boolean',  'sesame_api_testmode', 'false'
-        }
-    }
 }
 
 dependencies {
@@ -40,11 +29,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
-    implementation 'androidx.annotation:annotation:1.1.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
-    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // retrofit HTTP
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
